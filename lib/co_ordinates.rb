@@ -7,4 +7,8 @@ class CoOrdinates
     @x = x
     @y = y
   end
+
+  def ==(another_coordinates)
+    self.x == another_coordinates.x && self.y == another_coordinates.y
+  end
 end

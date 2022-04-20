@@ -1,26 +1,58 @@
 # frozen_string_literal: true
 
+require_relative "./co_ordinates.rb"
+
 class GameBoard
   DEFAULT_BOARD_SIZE = 9
   DIFFICULTY_LEVEL = { easy: 0.15, medium: 0.25, hard: 0.5 }.freeze
   EMPTY_TILE = "0"
   HIDDEN_TILE = "-"
   MINE = "x"
+  TICK = "\u2713".encode
 
   def initialize(board_size: DEFAULT_BOARD_SIZE, difficulty: :easy)
     @board_size = board_size
     @difficulty = DIFFICULTY_LEVEL[difficulty]
+    @revealed_tiles = []
 
     set_game_boards
   end
 
+  def reveal(coords)
+    raise "Boom! Mine blasted." if mine_board[coords.x][coords.y] == MINE
+
+    return if revealed_tiles.include?(coords)
+
+    revealed_tiles << coords
+
+    neighbors = neighbors(coords)
+    num_of_adj_mines = neighbors.map(&:value).count(MINE)
+
+    if num_of_adj_mines.zero?
+      visible_board[coords.x][coords.y] = TICK
+
+      neighbors.map(&:coords).each { |co_ordinates| reveal(co_ordinates) }
+    else
+      visible_board[coords.x][coords.y] = num_of_adj_mines
+    end
+  end
+
   def display
     visible_board.each { |row| puts row.join("  ") }
+    mine_board.each  { |row| puts row.join("  ") }
+  end
+
+  def hidden_tiles_count
+    visible_board.flatten.count(HIDDEN_TILE)
+  end
+
+  def mines_count
+    @_mines_count ||= mine_board.flatten.count(MINE)
   end
 
   private
 
-  attr_reader :board_size, :difficulty, :mine_board, :visible_board
+  attr_reader :board_size, :difficulty, :mine_board, :visible_board, :revealed_tiles
 
   def set_game_boards
     @mine_board = generate_mine_board
@@ -39,6 +71,25 @@ class GameBoard
         MINE
       end
     end
+  end
+
+  def neighbors(coords)
+    result = []
+    possible_x1_values = [coords.x - 1, coords.x, coords.x + 1]
+    possible_y1_values = [coords.y - 1, coords.y, coords.y + 1]
+
+    possible_x1_values.each do |x1|
+      next unless x1.between?(0, board_size - 1)
+
+      possible_y1_values.each do |y1|
+        next unless y1.between?(0, board_size - 1)
+        next if (x1 == coords.x) && (y1 == coords.y)
+
+        result << OpenStruct.new(coords: CoOrdinates.new(x1, y1), value: mine_board[x1][y1])
+      end
+    end
+
+    result
   end
 
   def max_allowed_mines
