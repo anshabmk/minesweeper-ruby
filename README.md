@@ -53,7 +53,7 @@ Enter your guess (x, y):
 
 ### 1. Clone the repo and move inside the root folder
 
-`$ git clone <URL>`
+`$ git clone git@github.com:anshabmk/minesweeper-ruby.git`
 
 `$cd minesweeper-cli-game`
 
