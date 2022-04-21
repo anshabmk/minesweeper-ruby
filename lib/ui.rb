@@ -24,7 +24,14 @@ class UI
   end
 
   def print_board(board)
-    board.each { |row| puts row.join("  ") }
+    print "    "
+    puts (0..board.size - 1).to_a.join("  ")
+    print "\n"
+
+    board.each_with_index do |row, index|
+      print "#{index}   "
+      puts row.join("  ")
+    end
   end
 
   def get_user_guess_coordinates
