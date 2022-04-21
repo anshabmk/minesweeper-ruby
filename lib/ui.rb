@@ -23,8 +23,8 @@ class UI
     system("clear")
   end
 
-  def print_game_board(game_board)
-    game_board.visible_board.each { |row| puts row.join("  ") }
+  def print_board(board)
+    board.each { |row| puts row.join("  ") }
   end
 
   def get_user_guess_coordinates

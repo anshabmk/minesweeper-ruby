@@ -12,7 +12,7 @@ class Game
 
     while !won?
       ui.clear_screen
-      ui.print_game_board(game_board)
+      ui.print_board(game_board.visible_board)
 
       user_guess_coordinates = ui.get_user_guess_coordinates
 
@@ -28,7 +28,12 @@ class Game
     end
 
     puts "You won the game!"
-  rescue GameOverException, UserInterruptException => e
+  rescue GameOverException => e
+    ui.clear_screen
+    ui.print_board(game_board.mine_board)
+    puts e.message
+    exit!
+  rescue UserInterruptException => e
     puts e.message
     exit!
   end
