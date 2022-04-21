@@ -17,7 +17,7 @@ class GameBoard
   end
 
   def reveal(coords)
-    raise "Boom! Mine blasted." if mine_board[coords.x][coords.y] == MINE
+    raise GameOverException if mine_board[coords.x][coords.y] == MINE
 
     return if revealed_tiles.include?(coords)
 
