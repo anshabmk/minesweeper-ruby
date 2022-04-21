@@ -4,6 +4,8 @@ class CoOrdinates
   attr_reader :x, :y
 
   def initialize(x, y)
+    raise InvalidCoOrdinatesException if !x&.integer? || !y&.integer?
+
     @x = x
     @y = y
   end

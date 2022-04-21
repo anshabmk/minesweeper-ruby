@@ -10,5 +10,6 @@ require_relative "./co_ordinates.rb"
 require_relative "./exceptions/game_over_exception.rb"
 require_relative "./exceptions/user_interrupt_exception.rb"
 require_relative "./exceptions/out_of_bound_co_ordinates_exception.rb"
+require_relative "./exceptions/invalid_co_ordinates_exception.rb"
 
 trap("SIGINT") { exit! }

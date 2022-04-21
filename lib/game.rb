@@ -14,11 +14,10 @@ class Game
       ui.clear_screen
       ui.print_board(game_board.visible_board)
 
-      user_guess_coordinates = ui.get_user_guess_coordinates
-
       begin
+        user_guess_coordinates = ui.get_user_guess_coordinates
         game_board.reveal(user_guess_coordinates)
-      rescue OutOfBoundCoOrdinatesException => e
+      rescue OutOfBoundCoOrdinatesException, InvalidCoOrdinatesException => e
         puts e.message
         puts "Press Enter to retry..."
         ui.get_user_input
