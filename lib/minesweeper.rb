@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require "ostruct"
+require "tty-prompt"
 
 require_relative "./game.rb"
 require_relative "./game_board.rb"
