@@ -6,33 +6,33 @@ class Game
   end
 
   def start_game
-    loop do
-      system("clear")
-      game_board.display
+    while !won?
+      begin
+        system("clear")
+        game_board.display
 
-      puts game_board.hidden_tiles_count
-      puts game_board.mines_count
+        user_input = prompt_user_input
 
-      if game_board.hidden_tiles_count == game_board.mines_count
-        puts "You won the game!"
-        break
+        exit! if user_input == "exit"
+
+        set_current_guess_coordinates(user_input)
+        game_board.reveal(current_guess_coordinates)
+      rescue => e
+        puts e.message
+        exit!
       end
-
-      user_input = prompt_user_input
-
-      break if user_input == "exit"
-
-      set_current_guess_coordinates(user_input)
-      game_board.reveal(current_guess_coordinates)
-    rescue => e
-      puts e.message
-      break
     end
+
+    puts "You won the game!"
   end
 
   private
 
   attr_reader :game_board, :current_guess_coordinates
+
+  def won?
+    game_board.hidden_tiles_count == game_board.mines_count
+  end
 
   def prompt_user_input
     print "Enter your guess (x, y): "
