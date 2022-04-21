@@ -3,7 +3,7 @@
 class GameBoard
   DEFAULT_BOARD_SIZE = 9
   DIFFICULTY_LEVEL = { easy: 0.15, medium: 0.25, hard: 0.5 }.freeze
-  EMPTY_TILE = "0"
+  EMPTY_TILE = "_"
   HIDDEN_TILE = "-"
   MINE = "x"
   TICK = "\u2713".encode
