@@ -8,7 +8,7 @@ class GameBoard
   MINE = "x"
   TICK = "\u2713".encode
 
-  attr_reader :mine_board, :visible_board
+  attr_reader :mine_board, :visible_board, :board_size, :difficulty
 
   def initialize(board_size: DEFAULT_BOARD_SIZE, difficulty: :easy)
     @board_size = board_size
@@ -48,7 +48,7 @@ class GameBoard
 
   private
 
-  attr_reader :board_size, :difficulty, :revealed_tiles
+  attr_reader :revealed_tiles
 
   def set_game_boards
     @mine_board = generate_mine_board

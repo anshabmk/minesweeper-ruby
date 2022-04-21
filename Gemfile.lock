@@ -2,6 +2,7 @@ GEM
   remote: https://rubygems.org/
   specs:
     minitest (5.15.0)
+    o_stream_catcher (0.0.1)
     rake (13.0.6)
 
 PLATFORMS
@@ -9,6 +10,7 @@ PLATFORMS
 
 DEPENDENCIES
   minitest
+  o_stream_catcher
   rake
 
 BUNDLED WITH
