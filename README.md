@@ -51,6 +51,12 @@ Enter your guess (x, y):
 ```
 ## Local Setup
 
+### Pre-requesities
+
+### Ruby
+
+Download & Install ruby from [here](https://www.ruby-lang.org/en/downloads/) for your OS.
+
 ### 1. Clone the repo and move inside the root folder
 
 `$ git clone git@github.com:anshabmk/minesweeper-ruby.git`
