@@ -6,6 +6,7 @@ class GameBoard
   EMPTY_TILE = "_"
   HIDDEN_TILE = "\u2610".encode
   MINE = "x"
+  BLASTED_MINE = "X"
   TICK = "\u2713".encode
 
   attr_reader :mine_board, :visible_board, :board_size, :difficulty
@@ -20,7 +21,12 @@ class GameBoard
 
   def reveal(coords)
     raise OutOfBoundCoOrdinatesException unless valid_coordinates?(coords)
-    raise GameOverException if mine_board[coords.x][coords.y] == MINE
+
+    if mine_board[coords.x][coords.y] == MINE
+      mine_board[coords.x][coords.y] = BLASTED_MINE
+
+      raise GameOverException
+    end
 
     return if revealed_tiles.include?(coords)
 
