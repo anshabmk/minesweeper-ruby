@@ -67,6 +67,6 @@ Enter your guess (x, y):
 
 Follow the instructions given in the screen to play the game.
 
-### 4. Running tests
+## Running Tests
 
 `$ rake test`
