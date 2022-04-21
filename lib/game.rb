@@ -1,9 +1,5 @@
 # frozen_string_literal: true
 
-require "ostruct"
-require_relative "../lib/game_board.rb"
-require_relative "../lib/co_ordinates.rb"
-
 class Game
   def initialize
     @game_board = GameBoard.new
@@ -13,8 +9,10 @@ class Game
     loop do
       system("clear")
       game_board.display
+
       puts game_board.hidden_tiles_count
       puts game_board.mines_count
+
       if game_board.hidden_tiles_count == game_board.mines_count
         puts "You won the game!"
         break

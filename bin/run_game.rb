@@ -1,3 +1,5 @@
-require_relative "../app/game.rb"
+#!/usr/bin/env ruby
+
+require_relative "../lib/minesweeper.rb"
 
 Game.new.start_game

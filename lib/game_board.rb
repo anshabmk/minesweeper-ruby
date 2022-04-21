@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require_relative "./co_ordinates.rb"
-
 class GameBoard
   DEFAULT_BOARD_SIZE = 9
   DIFFICULTY_LEVEL = { easy: 0.15, medium: 0.25, hard: 0.5 }.freeze
