@@ -8,7 +8,7 @@ class Game
 
   def start_game
     ui.print_welcome_message
-    ui.print_instructions
+    ui.prompt_start_game
 
     while !won?
       ui.clear_screen
@@ -18,10 +18,8 @@ class Game
         user_guess_coordinates = ui.get_user_guess_coordinates
         game_board.reveal(user_guess_coordinates)
       rescue OutOfBoundCoOrdinatesException, InvalidCoOrdinatesException => e
-        puts e.message
-        puts "Press Enter to retry..."
-        ui.get_user_input
-
+        ui.print_error_message(e.message)
+        ui.wait_for_keypress(timeout: 3)
         next
       end
     end
@@ -30,10 +28,10 @@ class Game
   rescue GameOverException => e
     ui.clear_screen
     ui.print_board(game_board.mine_board)
-    puts e.message
+    ui.print_error_message(e.message)
     exit!
   rescue UserInterruptException => e
-    puts e.message
+    ui.print_error_message(e.message)
     exit!
   end
 
