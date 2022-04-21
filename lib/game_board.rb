@@ -8,6 +8,8 @@ class GameBoard
   MINE = "x"
   TICK = "\u2713".encode
 
+  attr_reader :mine_board, :visible_board
+
   def initialize(board_size: DEFAULT_BOARD_SIZE, difficulty: :easy)
     @board_size = board_size
     @difficulty = DIFFICULTY_LEVEL[difficulty]
@@ -17,6 +19,7 @@ class GameBoard
   end
 
   def reveal(coords)
+    raise OutOfBoundCoOrdinatesException unless valid_coordinates?(coords)
     raise GameOverException if mine_board[coords.x][coords.y] == MINE
 
     return if revealed_tiles.include?(coords)
@@ -35,11 +38,6 @@ class GameBoard
     end
   end
 
-  def display
-    visible_board.each { |row| puts row.join("  ") }
-    mine_board.each  { |row| puts row.join("  ") }
-  end
-
   def hidden_tiles_count
     visible_board.flatten.count(HIDDEN_TILE)
   end
@@ -50,7 +48,7 @@ class GameBoard
 
   private
 
-  attr_reader :board_size, :difficulty, :mine_board, :visible_board, :revealed_tiles
+  attr_reader :board_size, :difficulty, :revealed_tiles
 
   def set_game_boards
     @mine_board = generate_mine_board
@@ -100,5 +98,9 @@ class GameBoard
 
   def random_boolean_val
     rand < 0.5
+  end
+
+  def valid_coordinates?(coordinates)
+    [coordinates.x, coordinates.y].all? { |val| val.between?(0, board_size - 1) }
   end
 end
