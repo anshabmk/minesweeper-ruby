@@ -57,16 +57,15 @@ class GameBoard
 
   def generate_mine_board
     mines_planted = 0
-    empty_board = create_board(EMPTY_TILE)
 
-    empty_board.map do |row|
-      row.map do |cell|
-        next cell if (mines_planted >= max_allowed_mines) || random_boolean_val
-
+    Array.new(board_size * board_size).fill do
+      if (mines_planted < max_allowed_mines) && random_boolean_val
         mines_planted += 1
         MINE
+      else
+        EMPTY_TILE
       end
-    end
+    end.shuffle.each_slice(board_size).entries
   end
 
   def neighbors(coords)
@@ -97,7 +96,7 @@ class GameBoard
   end
 
   def random_boolean_val
-    rand < 0.5
+    rand < 0.3
   end
 
   def valid_coordinates?(coordinates)
